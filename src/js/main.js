@@ -4,12 +4,15 @@ import favoritesPage from "./pages/favoritesPage";
 import bidsPage from "./pages/bidsPage";
 import errorPage from "./pages/errorPage";
 
+const state = {};
+
+window.state = state;
+
 const routes = [
   { path: "/", component: homePage },
   { path: "item", component: singleItem },
   { path: "favorites", component: favoritesPage },
   { path: "bids", component: bidsPage },
-  
 ];
 
 function findConponentPath(path, routes) {
@@ -26,8 +29,7 @@ function router() {
 
   const { component = errorPage } =
     findConponentPath(currentPath, routes) || {};
-  console.log(currentPath);
-  component();
+  component(state);
 }
 
 window.addEventListener("hashchange", router);
