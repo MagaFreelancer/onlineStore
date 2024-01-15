@@ -15,8 +15,8 @@ export default async function (state) {
   form.addEventListener("change", async (e) => {
     e.preventDefault();
     state.filter.query = view.getInput();
-    view.changeButtonText(state.filter.result.length);
     await state.filter.getResults();
+    state.results = state.filter.result;
     view.changeButtonText(state.filter.result.length);
   });
 
@@ -28,7 +28,7 @@ export default async function (state) {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log("submit");
+    state.emitter.emit('event:render-listing', {})
   });
 }
 
