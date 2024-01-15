@@ -8,6 +8,7 @@ export default async function (state) {
   view.render(state.filter.params);
 
   await state.filter.getResults();
+  state.results = state.filter.result
   view.changeButtonText(state.filter.result.length);
 
   const form = document.querySelector("#filter-form");
@@ -23,6 +24,7 @@ export default async function (state) {
   form.addEventListener("reset", async () => {
     state.filter.query = "";
     await state.filter.getResults();
+    state.results = state.filter.result;
     view.changeButtonText(state.filter.result.length);
   });
 

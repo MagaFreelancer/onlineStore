@@ -31,6 +31,8 @@ function router() {
   let currentPath = pathArray[0] === "" ? "/" : pathArray[1];
   currentPath = currentPath === "" ? "/" : currentPath;
 
+
+  state.routeParams = pathArray[2] ? pathArray[2] : ''
   const { component = errorPage } =
     findConponentPath(currentPath, routes) || {};
   component(state);
