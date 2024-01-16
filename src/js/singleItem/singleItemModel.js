@@ -13,4 +13,17 @@ export default class SingleItem {
       console.log(err);
     }
   }
+  async submitForm(formData) {
+    const queryString = `https://jsproject.webcademy.ru/bidnew`;
+    const response = await fetch(queryString, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF=8",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    this.response = await data;
+   
+  }
 }
