@@ -1,17 +1,14 @@
-import * as view from "./listingView";
-export default function (state) {
-  view.render();
+import * as view from "./favoritesCardsView";
+import favouritesCards from "./favouritesCardsModel";
 
-  state.results.forEach((item) => {
-    view.renderCard(item, state.favourites.isFav(item.id));
-  });
-  state.emitter.subscribe("event:render-listing", () => {
-    view.clearListingContainer();
-    state.results.forEach((item) => {
-      view.renderCard(item, state.favourites.isFav(item.id));
-    });
-    addToFavsListener();
-  });
+export default async function (state) {
+  const favsList = state.favourites.favs;
+  const favoritesCards = new favouritesCards(favsList);
+
+  await favoritesCards.getFavs();
+
+  view.renderPage(favoritesCards.cards);
+
   addToFavsListener();
   function addToFavsListener() {
     Array.from(document.getElementsByClassName("card__like")).forEach(

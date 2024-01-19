@@ -23,9 +23,7 @@ export default class Favourites {
   }
   readStorage() {
     const storage = JSON.parse(localStorage.getItem("favs"));
-    console.log(storage);
     if (storage) {
-        console.log(storage);
         this.favs = storage;
     }
   }
