@@ -11,16 +11,17 @@ export function render() {
 
   document.querySelector("#app").insertAdjacentHTML("beforeend", markup);
 }
-export function renderCard(object) {
+export function renderCard(object, isFaved) {
   const listingContainer = document.querySelector("#listingContainer");
-  const markup = `<article class="col-md-4">
+  console.log(isFaved);
+  const markup = `<article  class="col-md-4">
     <!-- card -->
-    <a href="#/item/${object.id}" class="card">
+    <a data-id="${object.id}" href="#/item/${object.id}" class="card">
         <div class="card__header">
             <div class="card__title">
             ЖК   ${object.complex_name} 
             </div>
-            <div class="card__like">
+            <div class="card__like ${isFaved ? "card__like--active" : ""}">
                 <i class="fas fa-heart"></i>
             </div>
         </div>
@@ -56,7 +57,9 @@ export function renderCard(object) {
         </div>
         <div class="card__footer">
             <div class="card__art">${object.scu}</div>
-            <div class="card__floor">Этаж ${object.floor} из ${object.floors_total}</div>
+            <div class="card__floor">Этаж ${object.floor} из ${
+    object.floors_total
+  }</div>
         </div>
     </a>
     <!-- // card --></article>`;
@@ -64,6 +67,13 @@ export function renderCard(object) {
   listingContainer.insertAdjacentHTML("beforeend", markup);
 }
 export function clearListingContainer() {
-    const listingContainer = document.querySelector("#listingContainer");
-    listingContainer.innerHTML = ''
+  const listingContainer = document.querySelector("#listingContainer");
+  listingContainer.innerHTML = "";
+}
+export function toggleFavouriteIcon(elementIcon, isFaved) {
+  if (isFaved) {
+    elementIcon.classList.add("card__like--active");
+  } else {
+    elementIcon.classList.remove("card__like--active");
+  }
 }

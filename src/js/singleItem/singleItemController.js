@@ -5,7 +5,7 @@ export default async function (state) {
   state.singleItem = new SingleItem(state.routeParams);
   await state.singleItem.getItem();
 
-  view.render(state.singleItem.result);
+  view.render(state.singleItem.result, state.favourites.isFav(state.singleItem.id));
 
   document.querySelector(".button-order").addEventListener("click", () => {
     view.showModal();
@@ -37,5 +37,11 @@ export default async function (state) {
         });
       }
       console.log(formData);
+    });
+  document
+    .querySelector(".button-favourite")
+    .addEventListener("click", () => {
+      state.favourites.toggleFav(state.singleItem.id)
+      view.toggleFavouriteButton(state.favourites.isFav(state.singleItem.id))
     });
 }

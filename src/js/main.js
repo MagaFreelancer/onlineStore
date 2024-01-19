@@ -4,10 +4,12 @@ import favoritesPage from "./pages/favoritesPage";
 import bidsPage from "./pages/bidsPage";
 import errorPage from "./pages/errorPage";
 import EventEmitter from "./utils/EventEmitter";
+import Favourites from "./favourites/favouritesModel";
 
 const state = {
   results: [],
-  emitter: new EventEmitter()
+  emitter: new EventEmitter(),
+  favourites: new Favourites()
 };
 
 window.state = state;
@@ -31,8 +33,7 @@ function router() {
   let currentPath = pathArray[0] === "" ? "/" : pathArray[1];
   currentPath = currentPath === "" ? "/" : currentPath;
 
-
-  state.routeParams = pathArray[2] ? pathArray[2] : ''
+  state.routeParams = pathArray[2] ? pathArray[2] : "";
   const { component = errorPage } =
     findConponentPath(currentPath, routes) || {};
   component(state);
